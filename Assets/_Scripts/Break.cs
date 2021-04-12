@@ -22,7 +22,7 @@ public class Break : MonoBehaviour
         else
         {
             Debug.Log("Lost becase: " + gameObject.name);
-            GameManager.Loose();
+            GameManager.Lose();
         }
     }
 }

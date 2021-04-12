@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get { return _instance; } }
     [SerializeField] Canvas MainMenu, PauseMenu, RetryMenu, GamePlayMenu;
     public GameManager GameManager { get; private set; }
+    private GameObject PlayBtn;
+
     void Awake()
     {
         if (_instance != null)
@@ -18,6 +20,8 @@ public class UIManager : MonoBehaviour
             _instance = this;
         }
         GameManager = FindObjectOfType<GameManager>();
+        PlayBtn = MainMenu.transform.Find("PlayBtn").gameObject;
+        PlayBtnPulse();
     }
     private void OnDestroy()
     {
@@ -37,8 +41,9 @@ public class UIManager : MonoBehaviour
         MainMenu.transform.DOMoveX(0, 1.0f).SetEase(Ease.InBack);
         GamePlayMenu.transform.DOMoveX(150, 1f).SetEase(Ease.InBack);
         RetryMenu.transform.DOMoveX(-150, 1f).SetEase(Ease.InBack);
-        PauseMenu.transform.DOMoveY(150, 1f).SetEase(Ease.InBack);
+        PauseMenu.transform.DOMoveY(-150, 1f).SetEase(Ease.InBack);
         GameManager.Continue();
+        PlayBtnPulse();
     }
     public void Pause()
     {
@@ -67,6 +72,11 @@ public class UIManager : MonoBehaviour
         RetryMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.Pause);
 
     }
+    private void PlayBtnPulse()
+    {
+        PlayBtn.transform.DOScale(9f, 0.4f).SetLoops(-1, LoopType.Yoyo);
+    }
+
 
 }
 

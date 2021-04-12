@@ -69,7 +69,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Respawn"))
         {
             Debug.Log("Collided with ground");
-            gameMgr.Loose();
+            gameMgr.Lose();
         }
     }
 

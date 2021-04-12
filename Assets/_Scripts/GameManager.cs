@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Ball Ball;
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
+    private AudioSource BackMusic;
     private void Awake()
     {
         if (_instance != null)
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         }
         SpawnManager = FindObjectOfType<SpawnManager>();
         UIManager = FindObjectOfType<UIManager>();
+        BackMusic = GetComponent<AudioSource>();
     }
     private void OnDestroy()
     {
@@ -31,14 +33,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IsGameStarted = false;
-
     }
     public void StartGame()
     {
-        ClearCurrentObjects()
+        ClearCurrentObjects();
         IsGameStarted = true;
         Ball.Init(this);
         SpawnManager.Init();
+        Music("play");
     }
     private void ClearCurrentObjects()
     {
@@ -52,29 +54,46 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-
-    }
-    public void Home()
-    {
-        Continue();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Pause()
     {
         if (Time.timeScale == 1f)
             Time.timeScale = 0f;
+        Music("pause");
     }
     public void Continue()
     {
         if (Time.timeScale != 1f)
             Time.timeScale = 1f;
+        Music("unpause");
     }
-    public void Loose()
+    public void Lose()
     {
         SpawnManager.StopSpwning();
         SpawnManager.TileParent.gameObject.SetActive(false);
         SpawnManager.GlassParent.gameObject.SetActive(false);
         Ball.Disable();
         UIManager.Loose();
+        Music("stop");
+    }
+    private void Music(string command)
+    {
+        switch (command)
+        {
+            case "play":
+                BackMusic.Play(0);
+                break;
+            case "stop":
+                BackMusic.Stop();
+                break;
+            case "pause":
+                BackMusic.Pause();
+                break;
+            case "unpause":
+                BackMusic.UnPause();
+                break;
+            default:
+                break;
+        }
     }
 }
