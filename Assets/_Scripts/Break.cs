@@ -21,7 +21,7 @@ public class Break : MonoBehaviour
         }
         else
         {
-            Debug.Log("Lost becase: " + gameObject.name);
+            Debug.Log("barl color: " + collision.gameObject.GetComponent<Ball>().BallColor + " glass color: " + this.gameObject.GetComponent<Glass>().GlassColor);
             GameManager.Lose();
             UIManager.BringLoseMenu();
         }

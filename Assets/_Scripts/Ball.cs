@@ -61,7 +61,6 @@ public class Ball : MonoBehaviour
                 var newColor = collision.gameObject.GetComponent<Tile>().TileColor;
                 gameObject.GetComponent<Renderer>().material.DOColor(newColor, 0.5f);
                 ballColor = newColor;
-
             }
 
         }
