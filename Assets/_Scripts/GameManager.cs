@@ -6,11 +6,13 @@ public class GameManager : MonoBehaviour
     public SpawnManager SpawnManager;
     public UIManager UIManager;
     public Ball Ball;
+    private AudioSource BackMusic;
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
-    private AudioSource BackMusic;
+
     private void Awake()
     {
+
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         SpawnManager.TileParent.gameObject.SetActive(false);
         SpawnManager.GlassParent.gameObject.SetActive(false);
         Ball.Disable();
-        UIManager.Loose();
+        UIManager.BringLose();
         Music("stop");
     }
     private void Music(string command)

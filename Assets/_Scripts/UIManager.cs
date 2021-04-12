@@ -5,7 +5,7 @@ public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
-    [SerializeField] Canvas MainMenu, PauseMenu, RetryMenu, GamePlayMenu;
+    [SerializeField] Canvas MainMenu, PauseMenu, LoseMenu, GamePlayMenu;
     public GameManager GameManager { get; private set; }
     private GameObject PlayBtn;
 
@@ -30,48 +30,55 @@ public class UIManager : MonoBehaviour
             _instance = null;
         }
     }
-    public void Play()
+    public void BringGameMenu()
     {
         MainMenu.transform.DOMoveX(-150, 1.0f).SetEase(Ease.InBack);
         GamePlayMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.StartGame);
 
     }
-    public void Home()
+    public void BringHomeFromPause()
     {
-        MainMenu.transform.DOMoveX(0, 1.0f).SetEase(Ease.InBack);
-        GamePlayMenu.transform.DOMoveX(150, 1f).SetEase(Ease.InBack);
-        RetryMenu.transform.DOMoveX(-150, 1f).SetEase(Ease.InBack);
-        PauseMenu.transform.DOMoveY(-150, 1f).SetEase(Ease.InBack);
+        MainMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack);
+        PauseMenu.transform.DOMoveX(15, 1f).SetEase(Ease.InBack);
+        GameManager.Continue();
+        GameManager.Lose();
+        PlayBtnPulse();
+    }
+    public void BringHomeFromLose()
+    {
+        MainMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack);
+        LoseMenu.transform.DOMoveX(15, 1f).SetEase(Ease.InBack);
         GameManager.Continue();
         PlayBtnPulse();
     }
-    public void Pause()
+    public void BringPause()
     {
+        GamePlayMenu.transform.DOMoveX(15, 1f).SetEase(Ease.InBack);
+        PauseMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.Pause);
 
-        GamePlayMenu.transform.DOMoveX(150, 1f).SetEase(Ease.InBack);
-        PauseMenu.transform.DOMoveY(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.Pause);
+    }
+    public void BringLose()
+    {
+        GamePlayMenu.transform.DOMoveX(15, 1f).SetEase(Ease.OutSine);
+        LoseMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.Pause);
 
     }
     public void Continue()
     {
-        PauseMenu.transform.DOMoveY(-150, 1f).SetEase(Ease.OutSine);
+        PauseMenu.transform.DOMoveX(15, 1f).SetEase(Ease.OutSine);
         GamePlayMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack);
         GameManager.Continue();
     }
     public void Retry()
     {
         GameManager.Continue();
+
         GamePlayMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack);
-        RetryMenu.transform.DOMoveX(-150, 1f).SetEase(Ease.InBack).OnComplete(GameManager.StartGame);
+        LoseMenu.transform.DOMoveX(15, 1f).SetEase(Ease.InBack).OnComplete(GameManager.StartGame);
 
     }
 
-    public void Loose()
-    {
-        GamePlayMenu.transform.DOMoveX(150, 1f).SetEase(Ease.OutSine);
-        RetryMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack).OnComplete(GameManager.Pause);
 
-    }
     private void PlayBtnPulse()
     {
         PlayBtn.transform.DOScale(9f, 0.4f).SetLoops(-1, LoopType.Yoyo);
