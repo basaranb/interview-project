@@ -1156,6 +1156,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 8699199452884584103, guid: 564b6c6bd12b3e342819f05b6227a783,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8699199452884584154, guid: 564b6c6bd12b3e342819f05b6227a783,
         type: 3}
       propertyPath: m_RootOrder
