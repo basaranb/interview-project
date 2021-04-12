@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
-    [SerializeField] float force = 5.0f;
+
     [SerializeField] float durationAnim = 0.33f;
     [SerializeField] float speed = 10.0f;
     private new Rigidbody rigidbody;
@@ -28,9 +28,10 @@ public class Ball : MonoBehaviour
     public void Init(GameManager gameMgr)
     {
         this.gameObject.SetActive(true);
+        this.gameObject.transform.position = new Vector3(0, 6.6f, 12);
         this.gameMgr = gameMgr;
         rigidbody.isKinematic = false;
-        rigidbody.velocity = new Vector3(0, force, 0);
+        Jump();
         _isInitialized = true;
 
     }
@@ -43,7 +44,6 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         renderer.material.SetColor("_BaseColor", Color.white);
-        // rigidbody.isKinematic = true;
         renderer.sharedMaterial.DOFade(1.0f, 0.0f);
     }
     private void Update()
@@ -63,13 +63,17 @@ public class Ball : MonoBehaviour
                 ballColor = newColor;
 
             }
-            else if (collision.gameObject.CompareTag("Respawn"))
-            {
-                renderer.sharedMaterial.DOFade(0.0f, durationAnim).OnComplete(Delete);
 
-            }
+        }
+
+        if (collision.gameObject.CompareTag("Respawn"))
+        {
+            Debug.Log("Collided with ground");
+            gameMgr.Loose();
         }
     }
+
+
     private void Move()
     {
         if (Input.touchCount > 0)
@@ -87,14 +91,19 @@ public class Ball : MonoBehaviour
     }
     private void Jump()
     {
-        var magnitude = Physics.gravity.magnitude;
+
         rigidbody.velocity = new Vector3(0, speed, 0);
+        Debug.Log("jumped with: " + rigidbody.velocity);
 
     }
-    public void Delete()
+    public void Disable()
     {
-        GetComponent<Collider>().enabled = false;
-        Destroy(gameObject);
+        renderer.sharedMaterial.DOFade(0.0f, durationAnim).OnComplete(Passifize);
+
+    }
+    private void Passifize()
+    {
+        this.gameObject.SetActive(false);
     }
 
 }

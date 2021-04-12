@@ -22,12 +22,9 @@ public class Explode : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Explosion Pos: " + explosionPos);
-        // Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
 
         foreach (Transform child in transform)
         {
-            print("Foreach loop: " + child);
             if (child.GetComponent<Rigidbody>())
             {
                 child.GetComponent<Rigidbody>().AddExplosionForce(200, explosionPos, 5);

@@ -21,10 +21,8 @@ public class Break : MonoBehaviour
         }
         else
         {
-            collision.gameObject.GetComponent<Ball>().Delete();
-            GameManager.Pause();
-            UIManager.Loose();
-
+            Debug.Log("Lost becase: " + gameObject.name);
+            GameManager.Loose();
         }
     }
 }

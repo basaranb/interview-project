@@ -2,9 +2,9 @@
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    public int Score { get; private set; }
     public bool IsGameStarted { get; private set; }
-    public SpawnManager SpawnManager { get; private set; }
+    public SpawnManager SpawnManager;
+    public UIManager UIManager;
     public Ball Ball;
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
         SpawnManager = FindObjectOfType<SpawnManager>();
+        UIManager = FindObjectOfType<UIManager>();
     }
     private void OnDestroy()
     {
@@ -30,14 +31,27 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IsGameStarted = false;
-        Score = 0;
+
     }
     public void StartGame()
     {
-
+        ClearCurrentObjects()
         IsGameStarted = true;
         Ball.Init(this);
         SpawnManager.Init();
+    }
+    private void ClearCurrentObjects()
+    {
+        SpawnManager.TileParent.gameObject.SetActive(true);
+        foreach (Transform child in SpawnManager.TileParent.gameObject.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        SpawnManager.GlassParent.gameObject.SetActive(true);
+        foreach (Transform child in SpawnManager.GlassParent.gameObject.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
 
     }
     public void Home()
@@ -45,7 +59,6 @@ public class GameManager : MonoBehaviour
         Continue();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public void Pause()
     {
         if (Time.timeScale == 1f)
@@ -56,10 +69,12 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale != 1f)
             Time.timeScale = 1f;
     }
-
-    private void Update()
+    public void Loose()
     {
-        Debug.Log("Time: " + Time.timeScale);
-
+        SpawnManager.StopSpwning();
+        SpawnManager.TileParent.gameObject.SetActive(false);
+        SpawnManager.GlassParent.gameObject.SetActive(false);
+        Ball.Disable();
+        UIManager.Loose();
     }
 }
