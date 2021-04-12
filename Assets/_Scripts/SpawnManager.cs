@@ -39,7 +39,6 @@ public class SpawnManager : MonoBehaviour
     private static SpawnManager _instance;
     public static SpawnManager Instance { get { return _instance; } }
     private Coroutine SpawnerCo;
-    private Coroutine GlassSpawnerCo;
     private void Awake()
     {
         if (_instance != null)
@@ -66,16 +65,12 @@ public class SpawnManager : MonoBehaviour
     public void Init()
     {
         SpawnWarmupTiles();
-        SpawnerCo = StartCoroutine(TileSpawner());
-        GlassSpawnerCo = StartCoroutine(GlasssSpawner());
-
+        SpawnerCo = StartCoroutine(Spawner());
     }
 
     public void StopSpwning()
     {
         StopCoroutine(SpawnerCo);
-        StopCoroutine(GlassSpawnerCo);
-
     }
     private void InitStartTiles()
     {
@@ -90,7 +85,7 @@ public class SpawnManager : MonoBehaviour
     {
         int[] xPos = { -3, 0, 3 };
         var indx = Random.Range(0, xPos.Length);
-        var glass = Instantiate(glassPrefab, new Vector3(xPos[indx], 9f, 75), Quaternion.Euler(new Vector3(0, 90, 0)));
+        var glass = Instantiate(glassPrefab, new Vector3(xPos[indx], 9f, 68), Quaternion.Euler(new Vector3(0, 90, 0)));
         glass.transform.SetParent(glassParent);
         glass.Init(speedOfTiles, lifeOfTiles);
         glass.GlassColor = tileColors[Random.Range(0, tileColors.Length)];
@@ -112,7 +107,6 @@ public class SpawnManager : MonoBehaviour
         tile.Init(this, speedOfTiles, lifeOfTiles);
         tile.transform.SetParent(tileParent);
         tile.TileColor = Color.white;
-
         for (int i = 1; i < 4; i++)
         {
             tile = Instantiate(tilePrefab, new Vector3(0, 6, (i * 14) + 12), Quaternion.identity);
@@ -121,25 +115,21 @@ public class SpawnManager : MonoBehaviour
             tile.TileColor = tileColors[i - 1];
         }
     }
-    private IEnumerator TileSpawner()
+    private IEnumerator Spawner()
     {
         while (true)
         {
             Spawn3Tiles();
-
-            yield return new WaitForSeconds(spawnDelay);
-
-        }
-    }
-    private IEnumerator GlasssSpawner()
-    {
-        while (true)
-        {
-
-            SpawnGlass();
-
-            yield return new WaitForSeconds(spawnDelay);
-
+            if (Random.Range(0, 1) == 0 && !forMenuAnimation)
+            {
+                yield return new WaitForSeconds(spawnDelay / 2);
+                SpawnGlass();
+                yield return new WaitForSeconds(spawnDelay / 2);
+            }
+            else
+            {
+                yield return new WaitForSeconds(spawnDelay);
+            }
         }
     }
 }

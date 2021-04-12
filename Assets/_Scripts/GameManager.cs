@@ -71,11 +71,15 @@ public class GameManager : MonoBehaviour
     }
     public void Lose()
     {
+        Quit();
+        UIManager.BringLoseMenu();
+    }
+    public void Quit()
+    {
         SpawnManager.StopSpwning();
         SpawnManager.TileParent.gameObject.SetActive(false);
         SpawnManager.GlassParent.gameObject.SetActive(false);
         Ball.Disable();
-        UIManager.BringLose();
         Music("stop");
     }
     private void Music(string command)

@@ -957,36 +957,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1147491049 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8699199452884584097, guid: 564b6c6bd12b3e342819f05b6227a783,
-    type: 3}
-  m_PrefabInstance: {fileID: 1400347698}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1147491050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147491049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 93496427eca1c2248b73a8d4a02be0e5, type: 2}
 --- !u!114 &1147491055 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8699199452884584155, guid: 564b6c6bd12b3e342819f05b6227a783,
     type: 3}
   m_PrefabInstance: {fileID: 1400347698}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147491049}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0cf69a81ed6e5c44b97e86968b3cc50, type: 3}
@@ -1076,7 +1053,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1439330615}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: BringPause
+        m_MethodName: BringPauseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1141,26 +1118,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8699199452884584097, guid: 564b6c6bd12b3e342819f05b6227a783,
-        type: 3}
-      propertyPath: m_TagString
-      value: Ball
-      objectReference: {fileID: 0}
-    - target: {fileID: 8699199452884584100, guid: 564b6c6bd12b3e342819f05b6227a783,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac6b700555c87ad4aa68989edc410831, type: 2}
-    - target: {fileID: 8699199452884584102, guid: 564b6c6bd12b3e342819f05b6227a783,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 8699199452884584103, guid: 564b6c6bd12b3e342819f05b6227a783,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8699199452884584154, guid: 564b6c6bd12b3e342819f05b6227a783,
         type: 3}
       propertyPath: m_RootOrder
@@ -1179,7 +1136,7 @@ PrefabInstance:
     - target: {fileID: 8699199452884584154, guid: 564b6c6bd12b3e342819f05b6227a783,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12
+      value: 11.6
       objectReference: {fileID: 0}
     - target: {fileID: 8699199452884584154, guid: 564b6c6bd12b3e342819f05b6227a783,
         type: 3}

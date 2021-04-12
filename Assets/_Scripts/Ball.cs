@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
 {
 
     [SerializeField] float durationAnim = 0.33f;
-    [SerializeField] float speed = 10.0f;
+    [SerializeField] float speed;
     private new Rigidbody rigidbody;
     private new Renderer renderer;
     private bool _isInitialized = false;
@@ -28,7 +28,7 @@ public class Ball : MonoBehaviour
     public void Init(GameManager gameMgr)
     {
         this.gameObject.SetActive(true);
-        this.gameObject.transform.position = new Vector3(0, 6.6f, 12);
+        this.gameObject.transform.position = new Vector3(0, 6.6f, 11.6f);
         this.gameMgr = gameMgr;
         rigidbody.isKinematic = false;
         Jump();
