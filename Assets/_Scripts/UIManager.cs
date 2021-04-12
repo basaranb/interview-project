@@ -38,7 +38,10 @@ public class UIManager : MonoBehaviour
     }
     public void BringHomeFromPause()
     {
-        BringHomeFromLose();
+        MainMenu.transform.DOMoveX(0, 1f).SetEase(Ease.InBack);
+        PauseMenu.transform.DOMoveX(15, 1f).SetEase(Ease.InBack);
+        GameManager.Continue();
+        PlayBtnPulse();
         GameManager.Quit();
 
     }
